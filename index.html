@@ -18,6 +18,7 @@ body {
     height: 100vh;
     text-align: center;
     overflow: hidden;
+    position: relative; /* IMPORTANT */
 }
 
 /* Golden glow background */
@@ -28,8 +29,7 @@ body::before {
     height: 200%;
     background: radial-gradient(circle, rgba(255,215,0,0.25) 0%, transparent 70%);
     animation: glowMove 15s infinite linear;
-    z-index: 0;
-    pointer-events: none; /* FIXED */
+    z-index: -1; /* PUSHED BEHIND EVERYTHING */
 }
 
 @keyframes glowMove {
@@ -44,7 +44,7 @@ body::before {
     max-width: 700px;
     opacity: 0;
     transition: opacity 1s;
-    z-index: 2;
+    z-index: 5; /* ABOVE HEARTS */
 }
 
 .active {
@@ -69,7 +69,6 @@ body::before {
 
 h1 {
     color: #b03060;
-    text-shadow: 0 0 10px rgba(255,215,0,0.7);
 }
 
 p {
@@ -86,16 +85,16 @@ button {
     background: #b03060;
     color: white;
     cursor: pointer;
-    box-shadow: 0 0 10px rgba(255,215,0,0.6);
+    position: relative;
+    z-index: 10; /* GUARANTEED CLICKABLE */
 }
 
 /* Floating Hearts */
 .heart {
     position: fixed;
     top: -20px;
-    animation: fall linear infinite, sway ease-in-out infinite, sparkle 2s infinite;
+    animation: fall linear infinite, sway ease-in-out infinite;
     z-index: 1;
-    opacity: 0.9;
     pointer-events: none;
 }
 
@@ -109,11 +108,6 @@ button {
     100% { margin-left: 0px; }
 }
 
-@keyframes sparkle {
-    0%,100% { opacity: 0.7; }
-    50% { opacity: 1; }
-}
-
 /* Confetti */
 .confetti {
     position: fixed;
@@ -121,7 +115,7 @@ button {
     width: 8px;
     height: 8px;
     animation: confettiFall linear forwards;
-    z-index: 3;
+    z-index: 20;
     pointer-events: none;
 }
 
@@ -143,38 +137,27 @@ button {
 
 <div class="page">
     <p>
-        From sharing secrets, dreams, and endless late-night talks…<br><br>
+        From sharing secrets and dreams…<br><br>
         to now seeing you rokafied to someone who truly knows you —
-        it’s beautiful in a way words can’t fully explain.
+        it’s beautiful.
     </p>
     <button onclick="nextPage()">Next ➝</button>
 </div>
 
 <div class="page">
     <p>
-        You didn’t just find love.<br><br>
-        You found it in someone who was already your best friend.
+        You found love in your best friend.<br><br>
         And that makes it even more magical.
     </p>
     <button onclick="nextPage()">Next ➝</button>
 </div>
 
 <div class="page">
-    <p>
-        I’ve seen your journey. I’ve seen your growth.<br><br>
-        Today, I see a woman stepping into a love she truly deserves.
-    </p>
-    <button onclick="nextPage()">Next ➝</button>
-</div>
-
-<!-- Final Surprise Page -->
-<div class="page">
     <div class="names">Akanksha ❤️ Samarth</div>
     <h1>Happy Roka 💖</h1>
     <p>
         Two best friends.<br>
-        One forever.<br><br>
-        May this be the beginning of your most beautiful chapter.
+        One forever.
     </p>
 </div>
 
@@ -195,7 +178,7 @@ function nextPage() {
     }
 }
 
-/* Create floating hearts */
+/* Hearts */
 function createHearts() {
     for (let i = 0; i < 30; i++) {
         let heart = document.createElement("div");
@@ -209,7 +192,7 @@ function createHearts() {
 }
 createHearts();
 
-/* Confetti Burst */
+/* Confetti */
 function launchConfetti() {
     for (let i = 0; i < 120; i++) {
         let confetti = document.createElement("div");
