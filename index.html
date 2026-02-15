@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Akanksha & Samarth 💍</title>
+<title>Akanksha 💍</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
@@ -29,6 +29,7 @@ body::before {
     background: radial-gradient(circle, rgba(255,215,0,0.25) 0%, transparent 70%);
     animation: glowMove 15s infinite linear;
     z-index: 0;
+    pointer-events: none; /* FIXED */
 }
 
 @keyframes glowMove {
@@ -55,14 +56,15 @@ body::before {
     font-family: 'Great Vibes', cursive;
     font-size: 55px;
     background: linear-gradient(45deg, gold, #fff5cc, gold);
+    background-size: 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: shimmer 3s infinite;
+    animation: shimmer 3s infinite linear;
 }
 
 @keyframes shimmer {
-    0% { background-position: -200px; }
-    100% { background-position: 200px; }
+    from { background-position: -200px; }
+    to { background-position: 200px; }
 }
 
 h1 {
@@ -91,11 +93,10 @@ button {
 .heart {
     position: fixed;
     top: -20px;
-    color: red;
     animation: fall linear infinite, sway ease-in-out infinite, sparkle 2s infinite;
     z-index: 1;
     opacity: 0.9;
-    text-shadow: 0 0 6px rgba(255,215,0,0.7);
+    pointer-events: none;
 }
 
 @keyframes fall {
@@ -104,13 +105,13 @@ button {
 
 @keyframes sway {
     0% { margin-left: 0px; }
-    50% { margin-left: 15px; }
+    50% { margin-left: 20px; }
     100% { margin-left: 0px; }
 }
 
 @keyframes sparkle {
     0%,100% { opacity: 0.7; }
-    50% { opacity: 1; text-shadow: 0 0 15px white; }
+    50% { opacity: 1; }
 }
 
 /* Confetti */
@@ -119,9 +120,9 @@ button {
     top: -10px;
     width: 8px;
     height: 8px;
-    background: gold;
     animation: confettiFall linear forwards;
     z-index: 3;
+    pointer-events: none;
 }
 
 @keyframes confettiFall {
@@ -166,7 +167,7 @@ button {
     <button onclick="nextPage()">Next ➝</button>
 </div>
 
-<!-- Surprise Final Page -->
+<!-- Final Surprise Page -->
 <div class="page">
     <div class="names">Akanksha ❤️ Samarth</div>
     <h1>Happy Roka 💖</h1>
@@ -194,7 +195,7 @@ function nextPage() {
     }
 }
 
-/* Floating Hearts */
+/* Create floating hearts */
 function createHearts() {
     for (let i = 0; i < 30; i++) {
         let heart = document.createElement("div");
