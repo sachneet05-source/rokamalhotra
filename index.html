@@ -10,24 +10,31 @@ body {
     margin: 0;
     font-family: 'Georgia', serif;
     background: linear-gradient(to bottom, #fff5f8, #ffe3ec);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     text-align: center;
-    padding: 60px 25px;
-    animation: fadeIn 2s ease-in;
+    overflow: hidden;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.page {
+    position: absolute;
+    width: 90%;
+    max-width: 700px;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.active {
+    opacity: 1;
 }
 
 h1 {
     color: #b03060;
-    font-size: 34px;
 }
 
-.message {
-    max-width: 800px;
-    margin: 40px auto;
+p {
     font-size: 20px;
     line-height: 1.8;
     color: #5a2a40;
@@ -35,67 +42,92 @@ h1 {
 
 button {
     margin-top: 30px;
-    padding: 12px 30px;
-    font-size: 16px;
+    padding: 10px 25px;
     border: none;
     border-radius: 25px;
     background: #b03060;
     color: white;
     cursor: pointer;
 }
-
-#surprise {
-    margin-top: 40px;
-    font-size: 22px;
-    color: #b03060;
-    display: none;
-}
 </style>
 </head>
 
 <body>
 
-<h1>💍 For Akanksha 💖</h1>
-
-<div class="message">
-Akanksha…<br><br>
-
-Watching you step into this new chapter of your life feels so surreal.<br><br>
-
-From sharing secrets, dreams, and endless late-night talks…  
-to now seeing you “rokafied” to someone who truly knows you — it’s beautiful in a way words can’t fully explain.<br><br>
-
-You didn’t just find love.  
-You found it in someone who was already your best friend. And that makes it even more magical.<br><br>
-
-Samarth isn’t just the person you’re choosing —  
-he’s someone who understands your heart, your silence, your chaos, and your kindness (sometimes). And that kind of love? That’s rare.<br><br>
-
-I’ve seen your journey.  
-I’ve seen your growth.  
-And today, I don’t just see a bride-to-be…<br><br>
-
-I see a woman stepping into a love she truly deserves.<br><br>
-
-May this new chapter be filled with comfort, laughter, partnership, and a lifetime of inside jokes, soft moments, and quiet understanding.<br><br>
-
-You deserve a love that feels safe.  
-And I’m so, so happy you found it. 💍✨<br><br>
-
-Happy Roka, my forever soul sister.  
-I love you always. 💖
+<div class="page active">
+    <h1>💍 For Akanksha 💖</h1>
+    <p>
+        Watching you step into this new chapter of your life feels so surreal.
+    </p>
+    <button onclick="nextPage()">Next ➝</button>
 </div>
 
-<button onclick="showLove()">Click for a Little Extra Love 💌</button>
+<div class="page">
+    <p>
+        From sharing secrets, dreams, and endless late-night talks…<br><br>
+        to now seeing you “rokafied” to someone who truly knows you —  
+        it’s beautiful in a way words can’t fully explain.
+    </p>
+    <button onclick="nextPage()">Next ➝</button>
+</div>
 
-<div id="surprise">
-May Rab bless your jodi with endless happiness,  
-prosperity, and a lifetime of love 🥹💞
+<div class="page">
+    <p>
+        You didn’t just find love.<br><br>
+        You found it in someone who was already your best friend.  
+        And that makes it even more magical.
+    </p>
+    <button onclick="nextPage()">Next ➝</button>
+</div>
+
+<div class="page">
+    <p>
+        Samarth isn’t just the person you’re choosing —<br><br>
+        he’s someone who understands your heart, your silence,  
+        your chaos, and your kindness (sometimes).  
+        And that kind of love? That’s rare.
+    </p>
+    <button onclick="nextPage()">Next ➝</button>
+</div>
+
+<div class="page">
+    <p>
+        I’ve seen your journey.  
+        I’ve seen your growth.<br><br>
+        And today, I don’t just see a bride-to-be…<br><br>
+        I see a woman stepping into a love she truly deserves.
+    </p>
+    <button onclick="nextPage()">Next ➝</button>
+</div>
+
+<div class="page">
+    <p>
+        May this new chapter be filled with comfort, laughter, partnership,  
+        and a lifetime of inside jokes, soft moments, and quiet understanding.<br><br>
+        You deserve a love that feels safe.  
+        And I’m so, so happy you found it. 💍✨
+    </p>
+    <button onclick="nextPage()">Next ➝</button>
+</div>
+
+<div class="page">
+    <h1>Happy Roka 💖</h1>
+    <p>
+        My forever soul sister.<br><br>
+        I love you always. 💞
+    </p>
 </div>
 
 <script>
-function showLove() {
-    document.getElementById("surprise").style.display = "block";
+let currentPage = 0;
+const pages = document.querySelectorAll(".page");
+
+function nextPage() {
+    pages[currentPage].classList.remove("active");
+    currentPage++;
+    if (currentPage < pages.length) {
+        pages[currentPage].classList.add("active");
+    }
 }
 </script>
 
