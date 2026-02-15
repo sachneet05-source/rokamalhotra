@@ -1,50 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akanksha & Samarth 💍</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background: radial-gradient(circle at top, #fff8dc, #ffe3ec 60%, #fff5f8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Golden glow background */
+body::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,215,0,0.25) 0%, transparent 70%);
+    animation: glowMove 15s infinite linear;
+    z-index: 0;
+}
+
+@keyframes glowMove {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Pages */
+.page {
+    position: absolute;
+    width: 90%;
+    max-width: 700px;
+    opacity: 0;
+    transition: opacity 1s;
+    z-index: 2;
+}
+
+.active {
+    opacity: 1;
+}
+
+/* Gold calligraphy names */
+.names {
+    font-family: 'Great Vibes', cursive;
+    font-size: 55px;
+    background: linear-gradient(45deg, gold, #fff5cc, gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200px; }
+    100% { background-position: 200px; }
+}
+
+h1 {
+    color: #b03060;
+    text-shadow: 0 0 10px rgba(255,215,0,0.7);
+}
+
+p {
+    font-size: 20px;
+    line-height: 1.8;
+    color: #5a2a40;
+}
+
+button {
+    margin-top: 30px;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 25px;
+    background: #b03060;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255,215,0,0.6);
+}
+
+/* Floating Hearts */
+.heart {
+    position: fixed;
+    top: -20px;
+    color: red;
+    animation: fall linear infinite, sway ease-in-out infinite, sparkle 2s infinite;
+    z-index: 1;
+    opacity: 0.9;
+    text-shadow: 0 0 6px rgba(255,215,0,0.7);
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh); }
+}
+
+@keyframes sway {
+    0% { margin-left: 0px; }
+    50% { margin-left: 15px; }
+    100% { margin-left: 0px; }
+}
+
+@keyframes sparkle {
+    0%,100% { opacity: 0.7; }
+    50% { opacity: 1; text-shadow: 0 0 15px white; }
+}
+
+/* Confetti */
+.confetti {
+    position: fixed;
+    top: -10px;
+    width: 8px;
+    height: 8px;
+    background: gold;
+    animation: confettiFall linear forwards;
+    z-index: 3;
+}
+
+@keyframes confettiFall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page active">
+    <h1>💍 For Akanksha 💖</h1>
+    <p>Watching you step into this new chapter of your life feels so surreal.</p>
+    <button onclick="nextPage()">Next ➝</button>
+</div>
+
+<div class="page">
+    <p>
+        From sharing secrets, dreams, and endless late-night talks…<br><br>
+        to now seeing you rokafied to someone who truly knows you —
+        it’s beautiful in a way words can’t fully explain.
+    </p>
+    <button onclick="nextPage()">Next ➝</button>
+</div>
+
+<div class="page">
+    <p>
+        You didn’t just find love.<br><br>
+        You found it in someone who was already your best friend.
+        And that makes it even more magical.
+    </p>
+    <button onclick="nextPage()">Next ➝</button>
+</div>
+
+<div class="page">
+    <p>
+        I’ve seen your journey. I’ve seen your growth.<br><br>
+        Today, I see a woman stepping into a love she truly deserves.
+    </p>
+    <button onclick="nextPage()">Next ➝</button>
+</div>
+
+<!-- Surprise Final Page -->
+<div class="page">
+    <div class="names">Akanksha ❤️ Samarth</div>
+    <h1>Happy Roka 💖</h1>
+    <p>
+        Two best friends.<br>
+        One forever.<br><br>
+        May this be the beginning of your most beautiful chapter.
+    </p>
+</div>
+
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+let currentPage = 0;
+const pages = document.querySelectorAll(".page");
 
-    let currentPage = 0;
-    const pages = document.querySelectorAll(".page");
+function nextPage() {
+    pages[currentPage].classList.remove("active");
+    currentPage++;
 
-    function nextPage() {
-        pages[currentPage].classList.remove("active");
-        currentPage++;
-
-        if (currentPage < pages.length) {
-            pages[currentPage].classList.add("active");
-        }
-
-        if (currentPage === pages.length - 1) {
-            launchConfetti();
-        }
+    if (currentPage < pages.length) {
+        pages[currentPage].classList.add("active");
     }
 
-    window.nextPage = nextPage;
-
-    /* Floating Hearts */
-    function createHearts() {
-        for (let i = 0; i < 30; i++) {
-            let heart = document.createElement("div");
-            heart.className = "heart";
-            heart.innerHTML = "❤️";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.animationDuration = (6 + Math.random() * 6) + "s";
-            heart.style.fontSize = (12 + Math.random() * 10) + "px";
-            document.body.appendChild(heart);
-        }
+    if (currentPage === pages.length - 1) {
+        launchConfetti();
     }
+}
 
-    createHearts();
-
-    /* Confetti Burst */
-    function launchConfetti() {
-        for (let i = 0; i < 120; i++) {
-            let confetti = document.createElement("div");
-            confetti.className = "confetti";
-            confetti.style.left = Math.random() * 100 + "vw";
-            confetti.style.background = ["gold","pink","#ffcc00","#ff66a3"][Math.floor(Math.random()*4)];
-            confetti.style.animationDuration = (3 + Math.random() * 3) + "s";
-            document.body.appendChild(confetti);
-        }
+/* Floating Hearts */
+function createHearts() {
+    for (let i = 0; i < 30; i++) {
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (6 + Math.random() * 6) + "s";
+        heart.style.fontSize = (12 + Math.random() * 10) + "px";
+        document.body.appendChild(heart);
     }
+}
+createHearts();
 
-});
+/* Confetti Burst */
+function launchConfetti() {
+    for (let i = 0; i < 120; i++) {
+        let confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.background = ["gold","pink","#ffcc00","#ff66a3"][Math.floor(Math.random()*4)];
+        confetti.style.animationDuration = (3 + Math.random() * 3) + "s";
+        document.body.appendChild(confetti);
+    }
+}
 </script>
+
+</body>
+</html>
