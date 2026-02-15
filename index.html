@@ -1,189 +1,50 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Akanksha 💍</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-
-<style>
-body {
-    margin: 0;
-    font-family: Georgia, serif;
-    background: radial-gradient(circle at top, #fff8dc, #ffe3ec 60%, #fff5f8);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-/* Pages */
-.page {
-    position: absolute;
-    width: 90%;
-    max-width: 700px;
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-}
-
-.page.active {
-    opacity: 1;
-}
-
-/* Text */
-h1 {
-    color: #b03060;
-}
-
-p {
-    font-size: 20px;
-    line-height: 1.7;
-    color: #5a2a40;
-}
-
-/* Button */
-button {
-    margin-top: 25px;
-    padding: 12px 28px;
-    border: none;
-    border-radius: 25px;
-    background: #b03060;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-/* Gold Names */
-.names {
-    font-family: 'Great Vibes', cursive;
-    font-size: 55px;
-    background: linear-gradient(45deg, gold, #fff5cc, gold);
-    background-size: 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shimmer 3s infinite linear;
-}
-
-@keyframes shimmer {
-    from { background-position: -200px; }
-    to { background-position: 200px; }
-}
-
-/* Hearts */
-.heart {
-    position: fixed;
-    top: -20px;
-    pointer-events: none;
-    animation: fall linear infinite, sway ease-in-out infinite;
-}
-
-@keyframes fall {
-    to { transform: translateY(110vh); }
-}
-
-@keyframes sway {
-    0% { margin-left: 0px; }
-    50% { margin-left: 20px; }
-    100% { margin-left: 0px; }
-}
-
-/* Confetti */
-.confetti {
-    position: fixed;
-    top: -10px;
-    width: 8px;
-    height: 8px;
-    pointer-events: none;
-    animation: confettiFall linear forwards;
-}
-
-@keyframes confettiFall {
-    to {
-        transform: translateY(110vh) rotate(360deg);
-    }
-}
-</style>
-</head>
-
-<body>
-
-<div class="page active">
-    <h1>💍 For Akanksha 💖</h1>
-    <p>Watching you step into this new chapter of your life feels so surreal.</p>
-    <button id="nextBtn">Next ➝</button>
-</div>
-
-<div class="page">
-    <p>
-        From sharing secrets and dreams…<br><br>
-        to now seeing you rokafied to someone who truly knows you —
-        it’s beautiful.
-    </p>
-    <button id="nextBtn2">Next ➝</button>
-</div>
-
-<div class="page">
-    <p>
-        You found love in your best friend.<br><br>
-        And that makes it even more magical.
-    </p>
-    <button id="nextBtn3">Next ➝</button>
-</div>
-
-<div class="page">
-    <div class="names">Akanksha ❤️ Samarth</div>
-    <h1>Happy Roka 💖</h1>
-    <p>Two best friends. One forever.</p>
-</div>
-
 <script>
-const pages = document.querySelectorAll(".page");
-let current = 0;
+window.onload = function() {
 
-/* Move to next page */
-function goNext() {
-    pages[current].classList.remove("active");
-    current++;
-    if (current < pages.length) {
-        pages[current].classList.add("active");
+    const pages = document.querySelectorAll(".page");
+    let current = 0;
+
+    function goNext() {
+        pages[current].classList.remove("active");
+        current++;
+
+        if (current < pages.length) {
+            pages[current].classList.add("active");
+        }
+
+        if (current === pages.length - 1) {
+            launchConfetti();
+        }
     }
-    if (current === pages.length - 1) {
-        launchConfetti();
+
+    // Attach button click events
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach(btn => {
+        btn.addEventListener("click", goNext);
+    });
+
+    // Create hearts
+    for (let i = 0; i < 25; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (6 + Math.random() * 6) + "s";
+        heart.style.fontSize = (12 + Math.random() * 10) + "px";
+        document.body.appendChild(heart);
     }
-}
 
-/* Attach events safely */
-document.querySelectorAll("button").forEach(btn => {
-    btn.addEventListener("click", goNext);
-});
-
-/* Hearts */
-for (let i = 0; i < 25; i++) {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (6 + Math.random() * 6) + "s";
-    heart.style.fontSize = (12 + Math.random() * 10) + "px";
-    document.body.appendChild(heart);
-}
-
-/* Confetti */
-function launchConfetti() {
-    for (let i = 0; i < 100; i++) {
-        const confetti = document.createElement("div");
-        confetti.className = "confetti";
-        confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.background =
-            ["gold","pink","#ffcc00","#ff66a3"][Math.floor(Math.random()*4)];
-        confetti.style.animationDuration = (3 + Math.random() * 3) + "s";
-        document.body.appendChild(confetti);
+    function launchConfetti() {
+        for (let i = 0; i < 100; i++) {
+            const confetti = document.createElement("div");
+            confetti.className = "confetti";
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.background =
+                ["gold","pink","#ffcc00","#ff66a3"][Math.floor(Math.random()*4)];
+            confetti.style.animationDuration = (3 + Math.random() * 3) + "s";
+            document.body.appendChild(confetti);
+        }
     }
-}
+
+};
 </script>
-
-</body>
-</html>
