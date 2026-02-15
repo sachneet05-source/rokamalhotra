@@ -10,31 +10,13 @@
 <style>
 body {
     margin: 0;
-    font-family: 'Georgia', serif;
+    font-family: Georgia, serif;
     background: radial-gradient(circle at top, #fff8dc, #ffe3ec 60%, #fff5f8);
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    text-align: center;
     overflow: hidden;
-    position: relative; /* IMPORTANT */
-}
-
-/* Golden glow background */
-body::before {
-    content: "";
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,215,0,0.25) 0%, transparent 70%);
-    animation: glowMove 15s infinite linear;
-    z-index: -1; /* PUSHED BEHIND EVERYTHING */
-}
-
-@keyframes glowMove {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
 }
 
 /* Pages */
@@ -42,16 +24,39 @@ body::before {
     position: absolute;
     width: 90%;
     max-width: 700px;
+    text-align: center;
     opacity: 0;
-    transition: opacity 1s;
-    z-index: 5; /* ABOVE HEARTS */
+    transition: opacity 0.6s ease;
 }
 
-.active {
+.page.active {
     opacity: 1;
 }
 
-/* Gold calligraphy names */
+/* Text */
+h1 {
+    color: #b03060;
+}
+
+p {
+    font-size: 20px;
+    line-height: 1.7;
+    color: #5a2a40;
+}
+
+/* Button */
+button {
+    margin-top: 25px;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 25px;
+    background: #b03060;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Gold Names */
 .names {
     font-family: 'Great Vibes', cursive;
     font-size: 55px;
@@ -67,35 +72,12 @@ body::before {
     to { background-position: 200px; }
 }
 
-h1 {
-    color: #b03060;
-}
-
-p {
-    font-size: 20px;
-    line-height: 1.8;
-    color: #5a2a40;
-}
-
-button {
-    margin-top: 30px;
-    padding: 10px 25px;
-    border: none;
-    border-radius: 25px;
-    background: #b03060;
-    color: white;
-    cursor: pointer;
-    position: relative;
-    z-index: 10; /* GUARANTEED CLICKABLE */
-}
-
-/* Floating Hearts */
+/* Hearts */
 .heart {
     position: fixed;
     top: -20px;
-    animation: fall linear infinite, sway ease-in-out infinite;
-    z-index: 1;
     pointer-events: none;
+    animation: fall linear infinite, sway ease-in-out infinite;
 }
 
 @keyframes fall {
@@ -114,9 +96,8 @@ button {
     top: -10px;
     width: 8px;
     height: 8px;
-    animation: confettiFall linear forwards;
-    z-index: 20;
     pointer-events: none;
+    animation: confettiFall linear forwards;
 }
 
 @keyframes confettiFall {
@@ -132,7 +113,7 @@ button {
 <div class="page active">
     <h1>💍 For Akanksha 💖</h1>
     <p>Watching you step into this new chapter of your life feels so surreal.</p>
-    <button onclick="nextPage()">Next ➝</button>
+    <button id="nextBtn">Next ➝</button>
 </div>
 
 <div class="page">
@@ -141,7 +122,7 @@ button {
         to now seeing you rokafied to someone who truly knows you —
         it’s beautiful.
     </p>
-    <button onclick="nextPage()">Next ➝</button>
+    <button id="nextBtn2">Next ➝</button>
 </div>
 
 <div class="page">
@@ -149,56 +130,55 @@ button {
         You found love in your best friend.<br><br>
         And that makes it even more magical.
     </p>
-    <button onclick="nextPage()">Next ➝</button>
+    <button id="nextBtn3">Next ➝</button>
 </div>
 
 <div class="page">
     <div class="names">Akanksha ❤️ Samarth</div>
     <h1>Happy Roka 💖</h1>
-    <p>
-        Two best friends.<br>
-        One forever.
-    </p>
+    <p>Two best friends. One forever.</p>
 </div>
 
 <script>
-let currentPage = 0;
 const pages = document.querySelectorAll(".page");
+let current = 0;
 
-function nextPage() {
-    pages[currentPage].classList.remove("active");
-    currentPage++;
-
-    if (currentPage < pages.length) {
-        pages[currentPage].classList.add("active");
+/* Move to next page */
+function goNext() {
+    pages[current].classList.remove("active");
+    current++;
+    if (current < pages.length) {
+        pages[current].classList.add("active");
     }
-
-    if (currentPage === pages.length - 1) {
+    if (current === pages.length - 1) {
         launchConfetti();
     }
 }
 
+/* Attach events safely */
+document.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", goNext);
+});
+
 /* Hearts */
-function createHearts() {
-    for (let i = 0; i < 30; i++) {
-        let heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerHTML = "❤️";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.animationDuration = (6 + Math.random() * 6) + "s";
-        heart.style.fontSize = (12 + Math.random() * 10) + "px";
-        document.body.appendChild(heart);
-    }
+for (let i = 0; i < 25; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (6 + Math.random() * 6) + "s";
+    heart.style.fontSize = (12 + Math.random() * 10) + "px";
+    document.body.appendChild(heart);
 }
-createHearts();
 
 /* Confetti */
 function launchConfetti() {
-    for (let i = 0; i < 120; i++) {
-        let confetti = document.createElement("div");
+    for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement("div");
         confetti.className = "confetti";
         confetti.style.left = Math.random() * 100 + "vw";
-        confetti.style.background = ["gold","pink","#ffcc00","#ff66a3"][Math.floor(Math.random()*4)];
+        confetti.style.background =
+            ["gold","pink","#ffcc00","#ff66a3"][Math.floor(Math.random()*4)];
         confetti.style.animationDuration = (3 + Math.random() * 3) + "s";
         document.body.appendChild(confetti);
     }
